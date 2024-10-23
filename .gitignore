@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Vite stuff
+src/assets/react.svg
+public/vite.svg
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
