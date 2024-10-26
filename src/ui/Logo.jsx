@@ -9,10 +9,11 @@ const Img = styled.img`
   width: auto;
 `;
 
-function Logo() {
+const Logo = () => {
   return (
     <StyledLogo>
       <Img src="/logo.png" alt="Logo" />
+      <h1>Simple Diabetes</h1>
     </StyledLogo>
   );
 }
