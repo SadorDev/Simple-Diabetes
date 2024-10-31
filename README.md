@@ -14,9 +14,8 @@ This app has different user roles, including unauthenticated users (unregistered
 4. [Project Setup](#project-setup)
 5. [Features](#features)
 6. [Technologies Used](#technologies-used)
-7. [API Integration](#api-integration)
-8. [File Structure](#file-structure)
-9. [Contributing](#contributing)
+7. [File Structure](#file-structure)
+8. [Contributing](#contributing)
 
 ---
 
@@ -137,18 +136,6 @@ Create a `.env` file in the root directory and add the following environment var
 - **Forms**: React Hook Form for validation
 - **Backend / Database**: Node.js/ Supabase (for storing user data and glucose logs)
 - **Other tools**: React Icons, React Hot Toast, Recharts, date-fns
-
----
-
-## API Integration
-
-Primary API: Glooko API (for syncing blood glucose data from Aviva Mobile)
-
-This API will manage and upload blood glucose data from your device. It's important to note that Glooko relies on manual uploads, which might feel outdated for modern needs. Currently, I'm awaiting a response from Glooko at api@glooko.com regarding access to their API.
-
-Alternative API: TryVital Freestyle Libre (Wearables API)
-
-A more modern option that offers real-time glucose monitoring through wearables such as the Freestyle Libre. This API comes with a cost but provides a more seamless and up-to-date integration for glucose tracking.
 
 ---
 
