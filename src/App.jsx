@@ -1,4 +1,6 @@
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./ui/ProtectedRoute";
 import Account from "./pages/Account";
 import Logbook from "./pages/Logbook";
 import Settings from "./pages/Settings";
@@ -6,7 +8,6 @@ import Users from "./pages/Users";
 import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Login";
 import GlobalStyles from "./styles/GlobalStyles";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AppLayout from "./ui/AppLayout";
 
 const App = () => {
@@ -15,7 +16,13 @@ const App = () => {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route path="/" element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="account" element={<Account />} />
