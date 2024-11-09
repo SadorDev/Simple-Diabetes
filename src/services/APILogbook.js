@@ -9,5 +9,9 @@ export async function getBloodGlucoseReadings() {
     throw new Error("BG readings could not be loaded");
   }
 
+  const { user } = await supabase.auth.getUser();
+  if (!user) {
+    throw new Error("User is not authenticated");
+  }
   return data;
 }
