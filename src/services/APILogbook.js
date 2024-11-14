@@ -1,5 +1,10 @@
 import supabase from "./supabase";
 
+
+export async function addBloodGlucoseReadings() {
+  
+}
+
 export async function getBloodGlucoseReadings(userId) {
   const { data, error } = await supabase
     .from("blood_glucose_log")
