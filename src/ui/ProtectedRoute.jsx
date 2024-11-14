@@ -1,18 +1,19 @@
+import { useEffect } from "react";
 import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/authentication/useUser";
 import Spinner from "./Spinner";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const FullPage = styled.div`
-  min-height: 100vh;
-  background-color: var(--color-grey-50);
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100vh;
+  background-color: var(--color-grey-50);
 `;
 
 const ProtectedRoute = ({ children }) => {
+  // This is only allowed to be called inside another function or useeffect,
   const navigate = useNavigate();
 
   // 1. Load the authenticated user
