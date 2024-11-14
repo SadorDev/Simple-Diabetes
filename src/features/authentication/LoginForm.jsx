@@ -3,7 +3,7 @@ import { useLogin } from "./useLogin";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
-import SpinnerMini from "../../ui/SpinnerMini.jsx"
+import SpinnerMini from "../../ui/SpinnerMini.jsx";
 import FormRowVertical from "../../ui/FormRowVertical.jsx";
 
 function LoginForm() {
