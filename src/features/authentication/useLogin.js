@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import {  useNavigate } from "react-router-dom";
-import { login as loginApi } from "../../services/apiAuth";
+import { useNavigate } from "react-router-dom";
+import { login as loginApi } from "../../services/apiAuth"; // Make sure your import is correct
 
 export function useLogin() {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,10 +10,12 @@ export function useLogin() {
   const login = async (credentials) => {
     setIsLoading(true);
     try {
-      const user = await loginApi(credentials);
-      localStorage.setItem("user", JSON.stringify(user.user));
+      const { user, error } = await loginApi(credentials); // Get the user object from Supabase Auth
+      if (error) throw error;
+
       toast.success("User logged in successfully");
       navigate("/dashboard", { replace: true });
+
     } catch (error) {
       console.error("ERROR:", error);
       toast.error("Provided email or password are incorrect");
