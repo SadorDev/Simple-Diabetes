@@ -2,19 +2,27 @@ import supabase from "./supabase";
 
 // This signs up our user to supabase
 export async function signup({ email, password, fullName }) {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        fullName,
-        avatar: "",
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          fullName,
+          avatar: "",
+        },
       },
-    },
-  });
+    });
 
-  if (error) throw new Error(error.message);
-  return data;
+    if (error) {
+      console.error("Signup Error", error);
+      throw error;
+    }
+    return { user: data.user, session: data.session }; // Return the data from signup
+  } catch (error) {
+    console.error("Signup Error (Catch Block):", error);
+    throw error;
+  }
 }
 
 export async function login({ email, password }) {
@@ -23,7 +31,6 @@ export async function login({ email, password }) {
     password,
   });
   if (error) {
-    console.log(error.message);
     throw new Error(error.message);
   }
 
@@ -31,14 +38,29 @@ export async function login({ email, password }) {
 }
 
 export async function getCurrentUser() {
-  const { data: session } = await supabase.auth.getSession();
-  if (!session.session) return null;
+  try {
+    const { data: session, error: sessionError } =
+      await supabase.auth.getSession();
+    if (sessionError) {
+      console.error("2. Session Error:", sessionError);
+      return null;
+    }
 
-  const { data, error } = await supabase.auth.getUser();
+    if (!session?.session?.user) {
+      return null;
+    }
 
-  if (error) throw new Error(error.message);
+    const { data, error } = await supabase.auth.getUser();
+    if (error) {
+      console.error("5. Auth.getUser Error:", error);
+      return null;
+    }
 
-  return data?.user;
+    return data?.user;
+  } catch (error) {
+    console.error("7. Error in getCurrentUser:", error);
+    return null;
+  }
 }
 
 export async function LoggedOut() {
