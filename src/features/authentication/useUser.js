@@ -21,5 +21,5 @@ export function useUser() {
     fetchUser();
   }, []);
 
-  return { user, isLoading, isAuthenticated: user?.role === "authenticated" };
+  return { user, isLoading, isAuthenticated: !!user };
 }
