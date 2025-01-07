@@ -13,7 +13,7 @@ const LoginLayout = styled.main`
   background-color: var(--color-grey-50);
 `;
 
-function Login() {
+const Login = () => {
   return (
     <LoginLayout>
       <Logo />
@@ -21,6 +21,6 @@ function Login() {
       <LoginForm />
     </LoginLayout>
   );
-}
+};
 
 export default Login;

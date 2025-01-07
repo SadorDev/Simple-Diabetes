@@ -13,7 +13,7 @@ const StyledHeader = styled.header`
   justify-content: flex-end;
 `;
 
-function Header() {
+const Header =() => {
   return (
     <StyledHeader>
       <Logout />

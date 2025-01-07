@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "../../services/apiAuth";
 
-export function useUser() {
+export const useUser =() => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 

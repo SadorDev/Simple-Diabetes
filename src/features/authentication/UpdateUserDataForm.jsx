@@ -8,7 +8,7 @@ import Input from "../../ui/Input";
 
 import { useUser } from "./useUser";
 
-function UpdateUserDataForm() {
+const UpdateUserDataForm = () => {
   const {
     user: {
       email,
@@ -19,9 +19,9 @@ function UpdateUserDataForm() {
   const [fullName, setFullName] = useState(currentFullName);
   const [avatar, setAvatar] = useState(null);
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -51,6 +51,6 @@ function UpdateUserDataForm() {
       </FormRow>
     </Form>
   );
-}
+};
 
 export default UpdateUserDataForm;

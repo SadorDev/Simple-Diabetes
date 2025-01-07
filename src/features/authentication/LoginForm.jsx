@@ -6,12 +6,12 @@ import Input from "../../ui/Input";
 import SpinnerMini from "../../ui/SpinnerMini.jsx";
 import FormRowVertical from "../../ui/FormRowVertical.jsx";
 
-function LoginForm() {
+const LoginForm =() => {
   const [email, setEmail] = useState("test@test.com");
   const [password, setPassword] = useState("12345678");
   const { login, isLoading } = useLogin();
 
-  function handleSubmit(e) {
+  const handleSubmit =(e) => {
     e.preventDefault();
     login({ email, password });
     try {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-export function useLogout() {
+export const useLogout =() => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 

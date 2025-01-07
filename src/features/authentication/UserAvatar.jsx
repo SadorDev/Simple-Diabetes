@@ -21,7 +21,7 @@ const Avatar = styled.img`
   outline: 2px solid var(--color-grey-100);
 `;
 
-function UserAvatar() {
+const UserAvatar = () => {
   const { user } = useUser();
   const { fullName, avatar } = user || {};
 
@@ -34,6 +34,6 @@ function UserAvatar() {
       <span>{fullName}</span>
     </StyledUserAvatar>
   );
-}
+};
 
 export default UserAvatar;
