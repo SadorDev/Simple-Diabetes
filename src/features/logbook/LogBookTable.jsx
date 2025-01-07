@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { getBloodGlucoseReadings } from "../../services/APILogbook";
-import { addBloodGlucoseReadings } from "../../services/APILogbook";
+import {
+  getBloodGlucoseReadings,
+  addBloodGlucoseReadings,
+} from "../../services/APILogbook";
 import PropTypes from "prop-types";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
@@ -50,29 +52,24 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 
-// Takes userId as a prop
 const LogbookTable = ({ userId }) => {
-  // State Management
-  // logbookEntries stores the user's blood glucose readings, starting as an empty array, while setLogbookEntries updates this data when fetched.
-  // newEntry tracks the state of the form for adding a new reading, and setNewEntry updates the form fields as the user types.
   const [logbookEntries, setLogbookEntries] = useState([]);
   const [newEntry, setNewEntry] = useState({
     reading: "",
     insulinUnits: "",
     notes: "",
   });
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // This code runs after userId changes, first checking if userId exists to avoid unnecessary calls.
-    // It fetches data from the database using getBloodGlucoseReadings(userId) and updates the state with setLogbookEntries(entries).
-    // If fetching fails, an error is logged. The dependency array [userId] ensures the data is re-fetched only when userId changes.
     const fetchLogbookEntries = async () => {
       if (userId) {
         try {
           const entries = await getBloodGlucoseReadings(userId);
-          setLogbookEntries(entries);
+          setLogbookEntries(entries || []);
         } catch (error) {
           console.error("Failed to load logbook entries:", error);
+          setError("Failed to load logbook entries.");
         }
       }
     };
@@ -80,18 +77,19 @@ const LogbookTable = ({ userId }) => {
     fetchLogbookEntries();
   }, [userId]);
 
-  // This handles an asynchoronous function that allows users to add data to their logbook
   const handleAddEntry = async () => {
-    // This checks if the newEntry.reading is empty.
-    // If it is, the function returns early and does not proceed to add the entry. This ensures that an empty reading is not submitted.
-    if (!newEntry.reading || !userId) return;
-    // This part uses async/await to call the addBloodGlucoseReadings function (which interacts with the database to insert a new entry).
-    // user_id: Passes the current user's ID (userId).
-    // reading: Converts the reading from a string to a number.
-    // insulinUnits: If insulin units are provided, it converts them into a number, otherwise it sends null.
-    // notes: Includes any notes the user has entered.
-    // timestamp: Sets the timestamp for the entry to the current time in ISO format.
-    // await ensures that the function pauses here until the data is successfully added or an error occurs.
+    if (!userId) {
+      console.error("User ID is missing. Cannot add entry.");
+      setError("User ID is missing. Please log in.");
+      return;
+    }
+
+    if (!newEntry.reading) {
+      console.error("Reading is required. Cannot add entry.");
+      setError("Reading is required.");
+      return;
+    }
+
     try {
       const addedEntry = await addBloodGlucoseReadings({
         userId,
@@ -103,19 +101,23 @@ const LogbookTable = ({ userId }) => {
         timestamp: new Date().toISOString(),
       });
 
-      
-
-      setLogbookEntries((prevEntries) => [
-        ...prevEntries,
-        addedEntry[0], // Handle array response
-      ]);
-      // This rests the form feilds to their empty initial state after the entry is successfully added
-      setNewEntry({ reading: "", insulinUnits: "", notes: "" });
+      if (addedEntry && addedEntry.length > 0) {
+        setLogbookEntries((prevEntries) => [...prevEntries, addedEntry[0]]);
+        setNewEntry({ reading: "", insulinUnits: "", notes: "" });
+        setError(null);
+      } else {
+        console.error("No data returned after adding entry:", addedEntry);
+        setError("Failed to add logbook entry. Please check the data.");
+      }
     } catch (error) {
       console.error("Failed to add logbook entry:", error);
+      setError("Failed to add logbook entry. Please try again.");
     }
   };
 
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
   return (
     <>
       <Input
@@ -140,7 +142,6 @@ const LogbookTable = ({ userId }) => {
       />
       <Button onClick={handleAddEntry}>Add Entry</Button>
       <StyledTable>
-        {/* Table Header */}
         <StyledHeader columns="1fr 1fr 1fr 1fr 1fr">
           <span>Date</span>
           <span>Time</span>
@@ -148,8 +149,6 @@ const LogbookTable = ({ userId }) => {
           <span>Insulin Units</span>
           <span>Notes</span>
         </StyledHeader>
-
-        {/* Table Body */}
         <StyledBody>
           {logbookEntries.length > 0 ? (
             logbookEntries.map((entry, index) => (
