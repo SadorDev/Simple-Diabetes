@@ -1,25 +1,25 @@
 import { useState, useEffect } from "react";
 import { getBloodGlucoseReadings } from "../services/APILogbook";
 import LogbookTable from "../features/logbook/LogBookTable";
-import { getCurrentUser } from "../services/apiAuth"; // Function to get the current logged-in user
+import { getCurrentUser } from "../services/apiAuth";
 
 const Logbook = () => {
-  const [logbookEntries, setLogbookEntries] = useState([]);
-  const [userId, setUserId] = useState(null); // State to store the logged-in user's ID
-  const [loading, setLoading] = useState(true); // Loading state while fetching data
-  const [error, setError] = useState(null); // Error handling state
 
-  // Fetch the current user on component mount
+  const [logbookEntries, setLogbookEntries] = useState([]);
+  const [userId, setUserId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const currentUser = await getCurrentUser(); 
-        console.log(currentUser);// Get current user data
+        const currentUser = await getCurrentUser();
         if (currentUser) {
-          setUserId(currentUser.id); // Set userId if user is logged in
+          setUserId(currentUser.id);
         }
       } catch (err) {
-        console.error("Error fetching user:", err);
+        console.error("Error fetching user in Logbook:", err);
+        setError("Failed to load user information."); 
       } finally {
         setLoading(false);
       }
@@ -28,25 +28,23 @@ const Logbook = () => {
     fetchUser();
   }, []);
 
-  // Fetch logbook entries if the user is logged in
   useEffect(() => {
     const fetchLogbookEntries = async () => {
       if (userId) {
         try {
-          const data = await getBloodGlucoseReadings(userId); // Fetch entries for the logged-in user
+          const data = await getBloodGlucoseReadings(userId);
           setLogbookEntries(data);
         } catch (error) {
           setError("Failed to load logbook entries");
-          console.error(error);
+          console.error("Error fetching logbook entries:", error);
         }
       }
     };
 
     fetchLogbookEntries();
-  }, [userId]); // Dependency on userId
+  }, [userId]);
 
-  // Render loading state or error if no user is logged in
-  if (loading) {
+   if (loading) {
     return <div>Loading user information...</div>;
   }
 
