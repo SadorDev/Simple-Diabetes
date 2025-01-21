@@ -10,10 +10,13 @@ import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Login";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
+import { DarkModeProvider } from "./context/DarkModeContext";
 
 const App = () => {
   return (
     <>
+    <DarkModeProvider>
+
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
@@ -57,6 +60,8 @@ const App = () => {
           },
         }}
       />
+    </DarkModeProvider>
+
     </>
   );
 };
