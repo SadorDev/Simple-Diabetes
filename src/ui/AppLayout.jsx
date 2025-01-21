@@ -11,7 +11,7 @@ const StyledAppLayout = styled.div`
 `;
 
 const Main = styled.main`
-  background: linear-gradient(to bottom, #d0e9f2, #f0f0f0); 
+  background-color: var(--color-grey-50);
   padding: 4rem 4.8rem 6.4rem;
 `;
 
