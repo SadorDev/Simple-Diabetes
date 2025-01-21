@@ -6,22 +6,18 @@ import Input from "../../ui/Input";
 
 import { useUpdateUser } from "./useUpdateUser";
 
-const UpdatePasswordForm =() => {
+const UpdatePasswordForm = () => {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
-
   const { updateUser, isUpdating } = useUpdateUser();
 
-  const onSubmit =({ password }) => {
+  const onSubmit = async ({ password }) => {
     updateUser({ password }, { onSuccess: reset });
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow
-        label="Password (min 8 characters)"
-        error={errors?.password?.message}
-      >
+      <FormRow label="Password (min 8)" error={errors?.password?.message}>
         <Input
           type="password"
           id="password"
@@ -61,6 +57,6 @@ const UpdatePasswordForm =() => {
       </FormRow>
     </Form>
   );
-}
+};
 
 export default UpdatePasswordForm;
