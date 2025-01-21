@@ -7,26 +7,29 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
 import { useUser } from "./useUser";
+import { useUpdateUser } from "./useUpdateUser";
 
-const UpdateUserDataForm = () => {
-  const {
-    user: {
-      email,
-      user_metadata: { fullName: currentFullName },
-    },
-  } = useUser();
+export const UpdateUserDataForm = () => {
+  const { user } = useUser();
+  const { updateUser, isUpdating } = useUpdateUser();
 
-  const [fullName, setFullName] = useState(currentFullName);
+  const email = user?.email || "";
+  const currentFullName = user?.user_metadata?.fullName || "";
+
   const [avatar, setAvatar] = useState(null);
+  const [fullName, setFullName] = useState(currentFullName);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!fullName) return;
+    const data = { fullName, avatar };
+    updateUser(data, { onSuccess: () => console.log("Update successful") });
   };
 
   return (
     <Form onSubmit={handleSubmit}>
       <FormRow label="Email address">
-        <Input value={email} disabled />
+        <Input type="email" value={email} disabled />
       </FormRow>
       <FormRow label="Full name">
         <Input
@@ -34,23 +37,15 @@ const UpdateUserDataForm = () => {
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
           id="fullName"
+          disabled={isUpdating}
         />
       </FormRow>
-      <FormRow label="Avatar image">
-        <FileInput
-          id="avatar"
-          accept="image/*"
-          onChange={(e) => setAvatar(e.target.files[0])}
-        />
+      <FormRow label="Avatar">
+        <FileInput onChange={(e) => setAvatar(e.target.files[0])} />
       </FormRow>
-      <FormRow>
-        <Button type="reset" variation="secondary">
-          Cancel
-        </Button>
-        <Button>Update account</Button>
-      </FormRow>
+      <Button type="submit" disabled={isUpdating}>
+        {isUpdating ? "Updating..." : "Update"}
+      </Button>
     </Form>
   );
 };
-
-export default UpdateUserDataForm;
