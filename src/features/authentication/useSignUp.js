@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { signup as signupAPI } from "../../services/apiAuth";
 import { toast } from "react-hot-toast";
 
-export const useSignUp =() => {
+export const useSignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -11,10 +11,12 @@ export const useSignUp =() => {
     setIsLoading(true);
     try {
       const { user, error } = await signupAPI(credentials);
-      if (error) throw error;
-      toast.success("Account successfully created!");
+      console.log(user);
 
-      navigate("/dashboard", { replace: true });
+      if (error) throw error;
+
+      toast.success("Account successfully created!");
+      navigate("/users", { replace: true });
     } catch (error) {
       console.error("Error:", error);
       toast.error(
@@ -26,4 +28,4 @@ export const useSignUp =() => {
   };
 
   return { signup, isLoading };
-}
+};
