@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
-import Logout from "../features/authentication/Logout";
-// import UserAvatar from "../features/authentication/UserAvatar";
+import HeaderMenu from "./HeaderMenu";
+import UserAvatar from "../features/authentication/UserAvatar";
+// import Logout from "../features/authentication/Logout";
 
 const StyledHeader = styled.header`
   background-color: var(--color-grey-0);
@@ -13,12 +14,13 @@ const StyledHeader = styled.header`
   justify-content: flex-end;
 `;
 
-const Header =() => {
+const Header = () => {
   return (
     <StyledHeader>
-      <Logout />
+      <UserAvatar />
+      <HeaderMenu />
     </StyledHeader>
   );
-}
+};
 
 export default Header;
