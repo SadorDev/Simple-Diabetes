@@ -1,6 +1,6 @@
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
-import UpdateUserDataForm from "../features/authentication/UpdateUserDataForm";
+import { UpdateUserDataForm } from "../features/authentication/UpdateUserDataForm";
 import UpdatePasswordForm from "../features/authentication/UpdatePasswordForm";
 
 const Account = () => {
@@ -19,6 +19,6 @@ const Account = () => {
       </Row>
     </>
   );
-}
+};
 
 export default Account;

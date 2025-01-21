@@ -1,6 +1,6 @@
 import { useState } from "react";
+import supabase from "../../services/supabase.js";
 import toast from "react-hot-toast";
-import { supabase } from "./supabaseClient";
 
 export const useUpdateUser = () => {
   const [isUpdating, setIsUpdating] = useState(false);
