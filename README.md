@@ -112,7 +112,7 @@ This app has different user roles, including unauthenticated users (unregistered
 
 ### Environment Variables
 Create a `.env` file in the root directory and add the following environment variables:
-- `REACT_APP_API_URL`: Base URL for the backend (if applicable)
+- `REACT_APP_API_URL`: Base URL for the backend
 - `REACT_APP_SECRET_KEY`: Secret key for authentication (useful for JWT tokens)
 
 ---
@@ -143,21 +143,54 @@ Create a `.env` file in the root directory and add the following environment var
 
 ```
 ├── src
-│   ├── components
-│   │   ├── Login.js
-│   │   ├── Dashboard.js
-│   │   ├── Logbook.js
-│   │   ├── Account.js
-│   │   ├── Settings.js
-│   │   ├── PageNotFound.js
-│   │   └── ...
-│   ├── context
-│   │   └── AuthContext.js
-│   ├── hooks
-│   │   └── useAuth.js
+│   ├── authentication
+│   │   ├── LoginForm.jsx
+│   │   ├── Logout.jsx
+│   │   ├── SignUpForm.jsx
+│   │   ├── UpdatePasswordForm.jsx
+│   │   ├── UpdateUserDataForm.jsx
+│   │   ├── useLogin.js
+│   │   └── useLogout.js
+│   │   └── useAvatar.js
+│   │   └── useSignUp.js
+│   │   └── useUser.js
+│   ├── logbook
+│   │   └──LogbookRow.jsx 
+│   │   └── LogbookTable.jsx
+│   ├── services
+│   │   └── apiAuth.js
+│   │   └── APILogbook.js
+│   │   └── supabase.js
 │   ├── pages
-│   │   └── (Pages corresponding to routes)
-│   └── App.js
+│   │   └── Account.jsx
+│   │   └── Dashboard.jsx
+│   │   └── Logbook.jsx
+│   │   └── Login.jsx
+│   │   └── PageNotFound.jsx
+│   │   └── Settings.jsx
+│   │   └── Users.jsx
+│   ├── styles
+│   │   └── GlobalStyles.js
+│   ├── ui
+│   │   │── AppLayout.jsx
+│   │   ├── Button.jsx
+│   │   ├── ButtonIcon.jsx
+│   │   ├── Form.jsx
+│   │   ├── FormRow.jsx
+│   │   ├── FormRowVertical.jsx
+│   │   ├── Header.jsx
+│   │   ├── Heading.jsx
+│   │   ├── Input.jsx
+│   │   ├── Logo.jsx
+│   │   ├── MainNav.jsx
+│   │   ├── Menus.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   ├── Sidebar.jsx
+│   │   ├── Spinner.jsx
+│   │   ├── SpinnerMini.jsx
+│   │   ├── Table.jsx
+│   └── App.jsx
+│   └── main.jsx
 └── ...
 ```
 
