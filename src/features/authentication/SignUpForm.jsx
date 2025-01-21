@@ -4,20 +4,49 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import { useSignUp } from "./useSignUp";
+// import { useEffect, useState } from "react";
+// import { getCurrentUser } from "../../services/apiAuth";
 
 // Email regex: /\S+@\S+\.\S+/
 
 const SignupForm = () => {
   const { signup, isLoading } = useSignUp();
-  const { register, formState, getValues, handleSubmit } = useForm();
+  const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const onSubmit = ({ fullName, email, password }) => {
-    signup({ fullName, email, password });
+  // useEffect(() => {
+  //   const checkAuthStatus = async () => {
+  //     const currentUser = await getCurrentUser();
+  //     if (currentUser) {
+  //       setIsAuthenticated(false);
+  //     }
+  //   };
+  //   checkAuthStatus();
+  // }, []);
+
+  const onSubmit = async ({ fullName, email, password }) => {
+    try {
+      await signup({ fullName, email, password });
+      reset();
+    } catch (error) {
+      console.error("Signup failed");
+    }
   };
+
+  // if (isAuthenticated) {
+  //   console.error(
+  //     "A user is already logged in. You cannot create a new user"
+  //   );
+  //   return;
+  // }
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
+      {/* {isAuthenticated && (
+        <p>A user is already logged in. Cannot create a new user.</p>
+      )} */}
+
       <FormRow label="Full name" error={errors?.fullName?.message}>
         <Input
           type="text"
@@ -69,12 +98,13 @@ const SignupForm = () => {
           disabled={isLoading}
           {...register("passwordConfirm", {
             required: "This field is required",
+            validate: (value) =>
+              value === getValues().password || "Password do not match",
           })}
         />
       </FormRow>
 
       <FormRow>
-        {/* type is an HTML attribute! */}
         <Button variation="secondary" type="reset" disabled={isLoading}>
           Cancel
         </Button>
@@ -82,6 +112,6 @@ const SignupForm = () => {
       </FormRow>
     </Form>
   );
-}
+};
 
 export default SignupForm;
