@@ -1,6 +1,7 @@
 # Simple Diabetes Management App
 
 ## Overview
+
 The **Simple Diabetes Management App** is a personal web application designed to help individuals with diabetes track and manage their blood glucose levels. This app allows users to log their daily blood glucose readings, view a logbook of previous entries, and manage their account settings.
 
 This app has different user roles, including unauthenticated users (unregistered visitors), authenticated users (users with valid accounts), and administrative users (app admins). The primary goal is to provide a smooth and user-friendly experience for diabetes management.
@@ -8,6 +9,7 @@ This app has different user roles, including unauthenticated users (unregistered
 ---
 
 ## Table of Contents
+
 1. [User Roles](#user-roles)
 2. [User Journeys](#user-journeys)
 3. [User Stories](#user-stories)
@@ -31,6 +33,7 @@ This app has different user roles, including unauthenticated users (unregistered
 ## User Journeys
 
 ### Unregistered Users
+
 - **Objective**: Create an account to start using the app.
   - View homepage with app details.
   - Fill out the registration form with necessary details.
@@ -38,6 +41,7 @@ This app has different user roles, including unauthenticated users (unregistered
   - Access the dashboard after successful registration.
 
 ### Unauthenticated Users
+
 - **Objective**: Log in to access their account and logbook.
   - View the login page.
   - Enter a valid email address and password.
@@ -45,6 +49,7 @@ This app has different user roles, including unauthenticated users (unregistered
   - Option to reset password if forgotten.
 
 ### Authenticated Users
+
 - **Objective**: Log their blood glucose levels and manage their settings.
   - Land on the dashboard after login.
   - Navigate to the logbook to view past entries.
@@ -57,6 +62,7 @@ This app has different user roles, including unauthenticated users (unregistered
 ## User Stories
 
 ### Unregistered Users:
+
 - **Story**: As an unregistered user, I want to register for an account so that I can use the app to manage my blood glucose levels.
   - **Acceptance Criteria**:
     1. Registration form collects the user’s email, password, and any other required details.
@@ -64,7 +70,9 @@ This app has different user roles, including unauthenticated users (unregistered
     3. After registration, the user is redirected to the dashboard.
 
 ### Unauthenticated Users:
+
 - **Story**: As an unauthenticated user, I want to log in so that I can access my account.
+
   - **Acceptance Criteria**:
     1. User enters a valid email and password.
     2. System validates the credentials using bcrypt for password comparison.
@@ -77,7 +85,9 @@ This app has different user roles, including unauthenticated users (unregistered
     3. User follows the link to reset the password and can log in.
 
 ### Authenticated Users:
-- **Story**: As an authenticated user, I want to log my blood glucose reading so that I can keep track of my health.
+
+- **Story**: As an authenticated user, I want to log my blood glucose reading so that I can keep track of my glucose readings.
+
   - **Acceptance Criteria**:
     1. User clicks "Add Log" and enters a valid blood glucose reading.
     2. Reading is saved in the logbook with a timestamp.
@@ -93,9 +103,11 @@ This app has different user roles, including unauthenticated users (unregistered
 ## Project Setup
 
 ### Prerequisites
+
 - **Node.js** and **npm** (Make sure both are installed)
 
 ### Installation
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/SadorDev/Simple-Diabetes.git
@@ -111,7 +123,9 @@ This app has different user roles, including unauthenticated users (unregistered
    ```
 
 ### Environment Variables
+
 Create a `.env` file in the root directory and add the following environment variables:
+
 - `REACT_APP_API_URL`: Base URL for the backend
 - `REACT_APP_SECRET_KEY`: Secret key for authentication (useful for JWT tokens)
 
@@ -120,10 +134,17 @@ Create a `.env` file in the root directory and add the following environment var
 ## Features
 
 1. **User Registration & Login**: Users can create an account, log in, and log out.
-2. **Blood Glucose Log**: Authenticated users can log their blood glucose levels.
-3. **Logbook**: View historical blood glucose readings with timestamps.
-4. **Account Settings**: Manage personal information and change passwords.
-5. **404 Page**: Handle invalid routes with a custom "Page Not Found" message.
+2. **Dashboard**: Pie chart that displays the BG readings within the last
+
+   - 7 days
+   - 14 days
+   - 30 days
+     Also a graph to display the average readings of the user
+
+3. **Blood Glucose Log**: Authenticated users can log their blood glucose levels.
+4. **Logbook**: View historical blood glucose readings with timestamps.
+5. **Account Settings**: Manage personal information and change passwords.
+6. **404 Page**: Handle invalid routes with a custom "Page Not Found" message.
 
 ---
 
@@ -154,8 +175,13 @@ Create a `.env` file in the root directory and add the following environment var
 │   │   └── useAvatar.js
 │   │   └── useSignUp.js
 │   │   └── useUser.js
+│   ├── dashboard
+│   │      ├── DashboardFilter.jsx
+│   │      └── DashboardLayout.jsx
+│   ├── context
+│   │      └── DarkModeContext.jsx
 │   ├── logbook
-│   │   └──LogbookRow.jsx 
+│   │   └── LogbookRow.jsx
 │   │   └── LogbookTable.jsx
 │   ├── services
 │   │   └── apiAuth.js
