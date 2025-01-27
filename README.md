@@ -139,7 +139,6 @@ Create a `.env` file in the root directory and add the following environment var
    - 7 days
    - 14 days
    - 30 days
-     Also a graph to display the average readings of the user
 
 3. **Blood Glucose Log**: Authenticated users can log their blood glucose levels.
 4. **Logbook**: View historical blood glucose readings with timestamps.
@@ -158,7 +157,18 @@ Create a `.env` file in the root directory and add the following environment var
 - **Backend / Database**: Node.js/ Supabase (for storing user data and glucose logs)
 - **Other tools**: React Icons, React Hot Toast, Recharts, date-fns
 
----
+  Going to have 4 Stats that display
+
+  - Average Glucose
+  - Glucose in Range
+  - Insulin Used
+  - Low Events
+
+  ### Recharts
+**Daily Patterns**: AreaChart & Linechart
+**Time In Range**: Pie chart
+**Low Glucose Events**: Bar Chart
+**Average Glucose**: Bar chart
 
 ## File Structure
 
@@ -177,7 +187,10 @@ Create a `.env` file in the root directory and add the following environment var
 │   │   └── useUser.js
 │   ├── dashboard
 │   │      ├── DashboardFilter.jsx
-│   │      └── DashboardLayout.jsx
+│   │      ├── DashboardLayout.jsx
+│   │      ├── Stat.jsx
+│   │      ├── Stats.jsx
+│   │      └── useBloodGlucoseReadings.jsx
 │   ├── context
 │   │      └── DarkModeContext.jsx
 │   ├── logbook
